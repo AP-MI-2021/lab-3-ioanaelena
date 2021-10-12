@@ -1,3 +1,4 @@
+import math
 #cea mai lunga subsecventa : 3. nr de semne alternative
 def get_longest_alternating_signs(lst) :
     lst=[1,2,3,-4,-5,6,7,-8,12,13,9,10,54]
@@ -44,11 +45,23 @@ def get_longest_average_below(lst, average: float ) :
             max=nr
     index+=1
 
-def test_get_longest_average_below()
+def test_get_longest_average_below() :
     assert get_longest_average_below(2,5,8,1,3,4,6,7,9) == [3]
 
+#1.patrate perfecte:
+def get_longest_all_perfect_squares(lst) :
+    lst=[0,1,4,16,5,7,49]
+    nr=0
+    max=0
+    for index in range (0,len(lst)) :
+        if int(math.sqrt(index)) ** 2 == index:
+            nr+=1
+        if nr>max :
+            max=nr
+    return nr
 
-
+def test_get_longest_all_perfect_squares() :
+    assert get_longest_all_perfect_squares(0,1,4,16,5,7,49) == [4]
 
 
 
