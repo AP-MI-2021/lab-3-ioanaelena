@@ -57,11 +57,13 @@ def get_longest_average_below(lst, average: float):
             aux = [number]
             sum = number
             count = 1
-
+    if aux not in result and len(aux) >= 2:
+        result.append(aux)
     length_lists = []
     for possible_list in result:
         length_lists.append(len(possible_list))
-    max_length = length_lists[0]
+    if length_lists:
+        max_length = length_lists[0]
     interest_index = 0
     for index in range(0, len(length_lists)):
         if length_lists[index] > max_length:
@@ -91,11 +93,15 @@ def get_longest_all_perfect_squares(lst):
                 if aux:
                     result.append(aux)
                 aux = []
+        elif aux:
+            result.append(aux)
+            aux = []
 
     length_lists = []
     for possible_list in result:
         length_lists.append(len(possible_list))
-    max_length = length_lists[0]
+    if length_lists:
+        max_length = length_lists[0]
     interest_index = 0
     for index in range(0, len(length_lists)):
         if length_lists[index] > max_length:
@@ -110,28 +116,40 @@ def test_get_longest_all_perfect_squares():
     assert get_longest_all_perfect_squares([0, 1, 4, 16, 5, 7, 49]) == [0, 1, 4, 16]
 
 
-if __name__ == '__main__':
+def interface_for_reading_list_calling_properties_and_printing():
     lista = []
-    answer = input("Alegeti una din optiunile:\n1. Citire\n2. Determinare cea mai lungă subsecvență cu proprietatea 1.\n"
-                   "3. Determinare cea mai lungă subsecvență cu proprietatea 2.\n"
-                   "4. Determinare cea mai lungă subsecvență cu proprietatea 3.\n"
-                   "5. Ieșire.\n")
-    while answer != '5':
+    while True:
+        answer = input(
+            "\nAlegeti una din optiunile:\n1. Citire\n2. Determinare cea mai lungă subsecvență cu semne alternative.\n"
+            "3. Determinare cea mai lungă subsecvență cu a caror medie sa fie mai mica decat un parametru dat.\n"
+            "4. Determinare cea mai lungă subsecvență de patrate perfecte.\n"
+            "5. Ieșire.\n")
         if answer == "1":
+            lista = []
             lungime_sir = input("Dati lungimea listei: ")
             for index in range(0, int(lungime_sir)):
                 element = input('Introduceti numarul pentru a-l adauga in lista: ')
                 lista.append(int(element))
             print("Lista citita este ", lista)
-        answer = input(
-            "\nAlegeti una din optiunile:\n1. Citire\n2. Determinare cea mai lungă subsecvență cu proprietatea 1.\n"
-                   "3. Determinare cea mai lungă subsecvență cu proprietatea 2.\n"
-                   "4. Determinare cea mai lungă subsecvență cu proprietatea 3.\n"
-                   "5. Ieșire.\n")
         if answer == "2":
-            print("Cea mai lunga subsecventa este: ", get_longest_alternating_signs(lista))
+            if lista!= []:
+                print("Cea mai lunga subsecventa este: ", get_longest_alternating_signs(lista))
+            else:
+                print("Nu s-a citit lista. Intai apasati 1 in meniu.")
         if answer == "3":
-            average = float(input("Dati media pentru proprietatea 2: "))
-            print("Cea mai lunga subsecventa este: ", get_longest_average_below(lista, average))
+            if lista != []:
+                average = float(input("Dati media pentru proprietatea 2: "))
+                print("Cea mai lunga subsecventa este: ", get_longest_average_below(lista, average))
+            else:
+                print('Nu s-a citit lista. Intai apasati 1 in meniu.')
         if answer == "4":
-            print("Cea mai lunga subsecventa este: ", get_longest_all_perfect_squares(lista))
+            if lista != []:
+                print("Cea mai lunga subsecventa este: ", get_longest_all_perfect_squares(lista))
+            else:
+                print('Nu s-a citit lista. Intai apasati 1 in meniu.')
+        if answer == '5':
+            break
+
+
+if __name__ == '__main__':
+    interface_for_reading_list_calling_properties_and_printing()
